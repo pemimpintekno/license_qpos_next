@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+}
+
+model LicenseKey {
+  id          String    @id @default(uuid())
+  serialKey   String    @unique
+  email       String    @unique
+  status      String    @default("UNUSED") // Can be "UNUSED", "ACTIVATED", or "DEACTIVATED"
+  deviceId    String?
+  createdAt   DateTime  @default(now())
+  activatedAt DateTime?
+
+  // Relation to the Admin who created this key
+  createdBy   Admin  @relation(fields: [createdById], references: [id])
+  createdById String
+}
+
+// New model for Admin users
+model Admin {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String // This will store a hashed password
+  createdAt DateTime @default(now())
+
+  // Relation to all keys created by this admin
+  licenseKeys LicenseKey[]
+}
