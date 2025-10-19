@@ -11,9 +11,12 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendLicenseEmail(to: string, serialKey: string) {
   // Get the application download link from environment variables.
   // Provide a placeholder if it's not set.
+  const appFolderDownloadLink =
+    process.env.APP_FOLDER_DOWNLOAD_LINK ||
+    "https://drive.google.com/drive/folders/1BLilJBbCofURaGFVjZ3ntzUqhY0Apn3q?usp=sharing";
   const appDownloadLink =
     process.env.APP_DOWNLOAD_LINK ||
-    "https://drive.google.com/file/d/1hWLk0LrhbfwSNcqmz1zusI2HOB85Umv8/view?usp=sharing";
+    "https://drive.google.com/file/d/13aG57b24GCLlWMkZCWv5CFwK9WmZqnE8/view?usp=sharing";
 
   try {
     const { data, error } = await resend.emails.send({
@@ -30,9 +33,25 @@ export async function sendLicenseEmail(to: string, serialKey: string) {
                     <strong>${serialKey}</strong>
                 </p>
                 <p>Silakan klik tombol di bawah ini untuk mengunduh aplikasi:</p>
-                <a href="${appDownloadLink}" style="display: inline-block; padding: 12px 24px; font-size: 16px; color: #ffffff; background-color: #28a745; text-decoration: none; border-radius: 5px;">
+                <a href="${appDownloadLink}" style="display: inline-block; padding: 12px 24px; font-size: 16px; color: #ffffff; background-color: #005D96; text-decoration: none; border-radius: 5px;">
                     Unduh Aplikasi
-                </a>
+                </a>  
+                <p>Atau gunakan tautan langsung berikut (klik untuk membuka):</p>
+                <ul style="padding-left: 16px;">
+                  <li>
+                    Link file installer: 
+                    <a href="${appDownloadLink}" style="color: #005D96; text-decoration: underline;">
+                      ${appDownloadLink}
+                    </a>
+                  </li>
+                  <li>
+                    Link folder lengkap: 
+                    <a href="${appFolderDownloadLink}" style="color: #005D96; text-decoration: underline;">
+                      ${appFolderDownloadLink}
+                    </a>
+                  </li>
+                </ul>
+
                 <p style="margin-top: 20px;">Salam hormat,<br>Tim QPOS</p>
             </div>
         `,
