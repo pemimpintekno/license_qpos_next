@@ -13,10 +13,10 @@ export async function sendLicenseEmail(to: string, serialKey: string) {
   // Provide a placeholder if it's not set.
   const appFolderDownloadLink =
     process.env.APP_FOLDER_DOWNLOAD_LINK ||
-    "https://drive.google.com/drive/folders/1BLilJBbCofURaGFVjZ3ntzUqhY0Apn3q?usp=sharing";
+    "https://drive.google.com/drive/folders/1DWbIMCGzeqmzem2jLRhUwYx0meNU9lHq?usp=sharing";
   const appDownloadLink =
     process.env.APP_DOWNLOAD_LINK ||
-    "https://drive.google.com/file/d/13aG57b24GCLlWMkZCWv5CFwK9WmZqnE8/view?usp=sharing";
+    "https://drive.google.com/file/d/1XcsmXKMPu-lftLPXAEA6udNueNGeoybK/view?usp=sharing";
 
   try {
     const { data, error } = await resend.emails.send({
