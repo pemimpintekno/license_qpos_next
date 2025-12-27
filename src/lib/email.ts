@@ -11,12 +11,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendLicenseEmail(to: string, serialKey: string) {
   // Get the application download link from environment variables.
   // Provide a placeholder if it's not set.
-  const appFolderDownloadLink =
-    process.env.APP_FOLDER_DOWNLOAD_LINK ||
-    "https://drive.google.com/drive/folders/1RewVjVYjU3w9j6k57wn1QQocihtbiiM9?usp=sharing";
   const appDownloadLink =
     process.env.APP_DOWNLOAD_LINK ||
-    "https://drive.google.com/file/d/1rCub2Zm_viWg-U21_GHB2QaQKJdkVBPt/view?usp=sharing";
+    "https://play.google.com/store/apps/details?id=com.pemimpinteknologi.qpos";
 
   try {
     const { data, error } = await resend.emails.send({
@@ -42,12 +39,6 @@ export async function sendLicenseEmail(to: string, serialKey: string) {
                     Link file installer: 
                     <a href="${appDownloadLink}" style="color: #005D96; text-decoration: underline;">
                       ${appDownloadLink}
-                    </a>
-                  </li>
-                  <li>
-                    Link folder lengkap: 
-                    <a href="${appFolderDownloadLink}" style="color: #005D96; text-decoration: underline;">
-                      ${appFolderDownloadLink}
                     </a>
                   </li>
                 </ul>
