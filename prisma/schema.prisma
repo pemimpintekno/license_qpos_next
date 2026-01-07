@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl         = env("DIRECT_URL")
 }
 
@@ -37,6 +37,19 @@ model Admin {
   // Relation to all keys created by this admin
   licenseKeys LicenseKey[]
 
-  
   @@map("Admin")
+}
+
+// Model for OTP verification
+model OTP {
+  id           String   @id @default(uuid())
+  email        String
+  code         String // 6 digit OTP
+  licenseKeyId String
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  used         Boolean  @default(false)
+
+  @@index([email, code])
+  @@map("OTP")
 }

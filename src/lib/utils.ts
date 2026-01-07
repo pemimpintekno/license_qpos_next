@@ -15,6 +15,11 @@ export function generateUniqueKey(): string {
   return chunks.slice(0, 4).join("-");
 }
 
+// Generate 6-digit OTP
+export function generateOTP(): string {
+  return crypto.randomInt(100000, 999999).toString();
+}
+
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })

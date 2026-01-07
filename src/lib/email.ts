@@ -60,3 +60,46 @@ export async function sendLicenseEmail(to: string, serialKey: string) {
     throw new Error("Failed to send license email.");
   }
 }
+
+/**
+ * Sends an OTP code to a user's email for license deactivation verification.
+ * @param {string} to The recipient's email address.
+ * @param {string} otpCode The 6-digit OTP code.
+ */
+export async function sendOTPEmail(to: string, otpCode: string) {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: `QPOS: Kasir Lengkap & Offline <${
+        process.env.EMAIL_FROM || "onboarding@resend.dev"
+      }>`,
+      to: [to],
+      subject: "Kode OTP untuk Reset Lisensi QPOS",
+      html: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <h2 style="color: #444;">Permintaan Reset Lisensi</h2>
+                <p>Anda telah meminta untuk mereset lisensi QPOS Anda.</p>
+                <p>Berikut adalah kode OTP Anda:</p>
+                <p style="background-color: #f4f4f4; border-left: 5px solid #005D96; padding: 15px; font-size: 24px; font-family: monospace; text-align: center; letter-spacing: 5px;">
+                    <strong>${otpCode}</strong>
+                </p>
+                <p><strong>Kode ini akan kedaluwarsa dalam 10 menit.</strong></p>
+                <p>Jika Anda tidak meminta reset lisensi, abaikan email ini.</p>
+                <p style="margin-top: 20px; color: #666; font-size: 12px;">
+                    Untuk keamanan akun Anda, jangan bagikan kode ini kepada siapapun.
+                </p>
+                <p style="margin-top: 20px;">Salam hormat,<br>Tim QPOS</p>
+            </div>
+        `,
+    });
+
+    if (error) {
+      console.error("Resend API error:", error);
+      throw new Error("Failed to send OTP email.");
+    }
+
+    console.log("OTP email sent successfully. ID:", data?.id);
+  } catch (error) {
+    console.error("Error sending OTP email:", error);
+    throw new Error("Failed to send OTP email.");
+  }
+}
