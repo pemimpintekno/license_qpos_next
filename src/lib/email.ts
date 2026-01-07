@@ -43,6 +43,18 @@ export async function sendLicenseEmail(to: string, serialKey: string) {
                   </li>
                 </ul>
 
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;" />
+
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+                  <p style="margin: 0 0 10px 0; font-weight: bold; color: #005D96;">Butuh Bantuan?</p>
+                  <p style="margin: 5px 0;">
+                    📧 Email: <a href="mailto:qposkasirlengkapdanoffline@gmail.com" style="color: #005D96;">qposkasirlengkapdanoffline@gmail.com</a>
+                  </p>
+                  <p style="margin: 5px 0;">
+                    📱 WhatsApp: <a href="https://wa.me/6281936242236" style="color: #005D96;">+62 819-3624-2236</a>
+                  </p>
+                </div>
+
                 <p style="margin-top: 20px;">Salam hormat,<br>Tim QPOS</p>
             </div>
         `,
